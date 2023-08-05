@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "skill-mark2-audio-receiver"
+version = "0.1.0"
+description = ""
+authors = ["Mike Gray <mike@graywind.org>"]
+license = "Apache-2.0"
+readme = "README.md"
+packages = [{include = "skill_mark2_audio_receiver"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[tool.poetry.group.dev.dependencies]
+projen = "^0.72.2"
+pytest = "^7.4.0"
+syrupy = "^4.0.8"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

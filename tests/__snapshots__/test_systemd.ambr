@@ -1,0 +1,28 @@
+# serializer version: 1
+# name: test_status
+  '''
+  ● bluetooth.service - Bluetooth service
+       Loaded: loaded (/lib/systemd/system/bluetooth.service; enabled; vendor preset: enabled)
+       Active: active (running) since Fri 2023-08-04 22:51:30 CDT; 695ms ago
+         Docs: man:bluetoothd(8)
+     Main PID: 9791 (bluetoothd)
+       Status: "Running"
+        Tasks: 1 (limit: 8759)
+       Memory: 736.0K
+          CPU: 134ms
+       CGroup: /system.slice/bluetooth.service
+               └─9791 /usr/lib/bluetooth/bluetoothd
+  
+  Aug 04 22:51:30 neon-dev bluetoothd[9791]: Starting SDP server
+  Aug 04 22:51:30 neon-dev bluetoothd[9791]: Bluetooth management interface 1.22 initialized
+  Aug 04 22:51:30 neon-dev bluetoothd[9791]: Endpoint registered: sender=:1.40 path=/MediaEndpoint/A2DPSink/sbc
+  Aug 04 22:51:30 neon-dev bluetoothd[9791]: Endpoint registered: sender=:1.40 path=/MediaEndpoint/A2DPSource/sbc
+  Aug 04 22:51:30 neon-dev bluetoothd[9791]: Endpoint registered: sender=:1.40 path=/MediaEndpoint/A2DPSink/sbc_xq_453
+  Aug 04 22:51:30 neon-dev bluetoothd[9791]: Endpoint registered: sender=:1.40 path=/MediaEndpoint/A2DPSource/sbc_xq_453
+  Aug 04 22:51:30 neon-dev bluetoothd[9791]: Endpoint registered: sender=:1.40 path=/MediaEndpoint/A2DPSink/sbc_xq_512
+  Aug 04 22:51:30 neon-dev bluetoothd[9791]: Endpoint registered: sender=:1.40 path=/MediaEndpoint/A2DPSource/sbc_xq_512
+  Aug 04 22:51:30 neon-dev bluetoothd[9791]: Endpoint registered: sender=:1.40 path=/MediaEndpoint/A2DPSink/sbc_xq_552
+  Aug 04 22:51:30 neon-dev bluetoothd[9791]: Endpoint registered: sender=:1.40 path=/MediaEndpoint/A2DPSource/sbc_xq_552
+  
+  '''
+# ---
