@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Duration in seconds to accept all pair requests
-DURATION=60
+DURATION=30
 
 # End time
 END_TIME=$(($(date +%s) + DURATION))
