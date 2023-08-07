@@ -55,8 +55,8 @@ def test_status():
     mock_output = "bluetooth.service - Bluetooth service"
     with patch("subprocess.run", return_value=Mock(returncode=0, stdout=mock_output.encode("utf-8"))):
         status = get_service_status("bluetooth")
-        assert isinstance(status, str)
-        assert "bluetooth.service" in status
+        assert isinstance(status, bool)
+        assert status is True
 
 
 def test_modify_exec_start():

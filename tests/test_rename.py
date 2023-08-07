@@ -1,5 +1,6 @@
 # pylint: disable=missing-function-docstring
 import pytest
+from unittest.mock import patch, Mock
 
 # Import the functions from the module
 from skill_mark2_audio_receiver.rename import (
@@ -8,6 +9,7 @@ from skill_mark2_audio_receiver.rename import (
     modify_key_value,
     set_config_key_value,
     set_raspotify_device_name,
+    set_uxplay_device_name,
 )
 
 
@@ -46,13 +48,13 @@ def test_set_config_key_value(tmpdir):
 
 def test_set_raspotify_device_name(tmpdir):
     file_path = tmpdir.join("raspotify.conf")
-    file_path.write('DEVICE_NAME="Old Name"\n')
+    file_path.write('LIBRESPOT_NAME="Old Name"\n')
 
     set_raspotify_device_name("New Name", file_path.strpath)
 
     with open(file_path.strpath, "r", encoding="utf-8") as f:
         content = f.readlines()
-        assert content == ['DEVICE_NAME="New Name"\n']
+        assert content == ['LIBRESPOT_NAME="New Name"\n']
 
 
 # Test the modification of a key-value pair in a given content

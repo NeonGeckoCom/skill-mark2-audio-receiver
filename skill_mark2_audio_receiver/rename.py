@@ -1,32 +1,6 @@
-import subprocess
-from typing import List
+from typing import List, Optional
 from skill_mark2_audio_receiver.systemd import set_system_service_exec_start, interact_with_service, reload_daemon
-
-
-def read_file(file_path: str) -> List[str]:
-    """
-    Read and return the content of a file.
-
-    Args:
-        file_path (str): Path to the file.
-
-    Returns:
-        List[str]: List of strings with each string being a line from the file.
-    """
-    with open(file_path, "r", encoding="utf-8") as f:
-        return f.readlines()
-
-
-def write_to_file(file_path: str, content: List[str]) -> None:
-    """
-    Write the updated content back to a file.
-
-    Args:
-        file_path (str): Path to the file.
-        content (List[str]): List of strings to be written to the file.
-    """
-    with open(file_path, "w", encoding="utf-8") as f:
-        f.writelines(content)
+from skill_mark2_audio_receiver import read_file, write_to_file
 
 
 def modify_key_value(content: List[str], key: str, value: str) -> List[str]:
@@ -86,8 +60,16 @@ def set_raspotify_device_name(name: str, config_path: str = "/etc/raspotify/conf
     set_config_key_value(config_path, "LIBRESPOT_NAME", f'"{name}"')
 
 
-def set_uxplay_device_name(name: str) -> bool:
-    set_system_service_exec_start("uxplay", "/usr/bin/uxplay", f"-n {name}")
+def set_uxplay_device_name(name: str, service_file_path: Optional[str] = None) -> bool:
+    """
+    Set the device name for UxPlay.
+
+    Args:
+        name (str): The name to be set for the Raspotify device.
+    Returns:
+        bool: Whether or not the service was successfully restarted.
+    """
+    set_system_service_exec_start("uxplay", "/usr/bin/uxplay", f"-n '{name}'", service_file_path)
     # Reload the systemd daemon to recognize the changes
     reload_daemon()
 

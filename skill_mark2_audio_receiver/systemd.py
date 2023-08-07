@@ -2,7 +2,7 @@ import os
 import subprocess
 from typing import List, Optional
 
-from skill_mark2_audio_receiver.rename import read_file, write_to_file
+from skill_mark2_audio_receiver import read_file, write_to_file
 
 
 # TODO: Logging
@@ -15,11 +15,10 @@ def interact_with_service(service_name: str, command: str) -> bool:
     return True
 
 
-def get_service_status(service_name: str):
-    result = subprocess.run(
-        ["systemctl", "status", normalize_service_name(service_name)], stdout=subprocess.PIPE, check=True
-    )
-    return result.stdout.decode("utf-8")
+def get_service_status(service_name: str) -> bool:
+    # Check needs to be false because services that aren't running return non-0 codes
+    result = subprocess.call(["systemctl", "is-active", "--quiet", normalize_service_name(service_name)])
+    return True if result == 0 else False
 
 
 def reload_daemon():
