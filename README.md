@@ -2,7 +2,7 @@
 
 ## About
 
-TODO: Validate pair functions and write the skill around all these functions
+TODO: Write the skill around all these functions
 
 This skill enables voice intents for the following audio receiver options on the Mycroft Mark 2 device:
 

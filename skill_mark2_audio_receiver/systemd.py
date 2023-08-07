@@ -1,6 +1,6 @@
 import os
 import subprocess
-from typing import Optional
+from typing import List, Optional
 
 from skill_mark2_audio_receiver.rename import read_file, write_to_file
 
@@ -27,17 +27,17 @@ def reload_daemon():
     return True
 
 
-def modify_exec_start(content: list[str], command: str, args: Optional[str] = None) -> list[str]:
+def modify_exec_start(content: List[str], command: str, args: Optional[str] = None) -> List[str]:
     """
     Modify the ExecStart line in a service's content.
 
     Args:
-    - content (list[str]): The content of the service file.
+    - content (List[str]): The content of the service file.
     - command (str): The main command to be executed by ExecStart.
     - args (Optional[str]): Additional arguments for the command.
 
     Returns:
-    - list[str]: The modified content.
+    - List[str]: The modified content.
     """
 
     exec_start_line = f"ExecStart={command}"
@@ -64,7 +64,7 @@ def set_system_service_exec_start(
     """
 
     if not service_file_path:
-        service_file_path = f"/etc/systemd/system/{service_name}.service"
+        service_file_path = f"/usr/lib/systemd/system/{service_name}.service"
 
     if not os.path.exists(service_file_path):
         raise FileNotFoundError(f"Service file {service_file_path} not found.")
