@@ -1,0 +1,22 @@
+skillMetadata:
+  sections:
+    - name: Pairing Timeouts
+      fields:
+        - name: bluetooth_timeout
+          type: number
+          label: Bluetooth pairing timeout. Defaults to 60 seconds.
+          value: 60
+        - name: kdeconnect_timeout
+          type: number
+          label: KDE Connect pairing timeout. Defaults to 30 seconds.
+          value: 30
+    - name: Device Names
+      fields:
+        - name: raspotify_name
+          type: text
+          label: Raspotify device name. Defaults to "Neon Mark 2".
+          value: "Neon Mark 2"
+        - name: airplay_name
+          type: text
+          label: UxPlay (Airplay) device name. Defaults to "uxplay@neon".
+          value: ""
