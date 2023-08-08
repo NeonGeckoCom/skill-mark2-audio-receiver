@@ -10,7 +10,6 @@ packages = [{include = "skill_mark2_audio_receiver"}]
 
 [tool.poetry.dependencies]
 python = "^3.7"
-tenacity = "^8.2.2"
 
 [tool.poetry.group.dev.dependencies]
 projen = "^0.72.2"

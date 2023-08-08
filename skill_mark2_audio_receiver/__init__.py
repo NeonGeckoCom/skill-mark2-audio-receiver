@@ -1,8 +1,13 @@
+"""Control various Audio Receiver options for Neon.AI Mark 2 Images."""
 from typing import List
+from subprocess import CalledProcessError
 
-from skill_mark2_audio_receiver.version import version
-
-__version__ = version
+from ovos_utils import classproperty
+from ovos_utils.process_utils import RuntimeRequirements
+from ovos_workshop.decorators import intent_handler
+from ovos_workshop.skills import OVOSSkill
+from skill_mark2_audio_receiver.systemd import interact_with_service, get_service_status
+from skill_mark2_audio_receiver.rename import set_uxplay_device_name, set_raspotify_device_name
 
 
 def read_file(file_path: str) -> List[str]:
@@ -29,3 +34,228 @@ def write_to_file(file_path: str, content: List[str]) -> None:
     """
     with open(file_path, "w", encoding="utf-8") as f:
         f.writelines(content)
+
+
+class MarkIIAudioReceiverSkill(OVOSSkill):
+    """Skill to control Audio Receiver options for Neon.AI Mark 2 Images."""
+
+    def __init__(self, *args, **kwargs):
+        """The __init__ method is called when the Skill is first constructed.
+        Note that self.bus, self.skill_id, self.settings, and
+        other base class settings are only available after the call to super().
+        """
+        super().__init__(*args, **kwargs)
+        self.renaming_airplay = False
+        self.renaming_spotify = False
+
+    @classproperty
+    def runtime_requirements(self):
+        return RuntimeRequirements(
+            internet_before_load=False,
+            network_before_load=True,
+            gui_before_load=False,
+            requires_internet=False,
+            requires_network=True,
+            requires_gui=False,
+            no_internet_fallback=True,
+            no_network_fallback=False,
+            no_gui_fallback=True,
+        )
+
+    @property
+    def get_bluetooth_timeout(self):
+        """Dynamically get the bluetooth_timeout from the skill settings file.
+        If it doesn't exist, return the default value.
+        This will reflect live changes to settings.json files (local or from backend)
+        """
+        return self.settings.get("bluetooth_timeout", 60)
+
+    @property
+    def get_kdeconnect_timeout(self):
+        """Dynamically get the kdeconnect_timeout from the skill settings file.
+        If it doesn't exist, return the default value.
+        This will reflect live changes to settings.json files (local or from backend)
+        """
+        return self.settings.get("kdeconnect_timeout", 30)
+
+    @property
+    def get_raspotify_name(self):
+        """Dynamically get the raspotify_name from the skill settings file.
+        If it doesn't exist, return the default value.
+        This will reflect live changes to settings.json files (local or from backend)
+        """
+        return self.settings.get("raspotify_name", "Neon Mark 2")
+
+    @property
+    def get_airplay_name(self):
+        """Dynamically get the airplay_name from the skill settings file.
+        If it doesn't exist, return the default value.
+        This will reflect live changes to settings.json files (local or from backend)
+        """
+        # Note that the default is actually uxplay@hostname, so for the config we default to ""
+        # This is an override setting only
+        return self.settings.get("airplay_name", "")
+
+    @intent_handler("check-service-status.intent")
+    def handle_check_service_status_intent(self, message) -> None:
+        """Check if we have a certain service enabled."""
+        service = ""
+        status = ""
+        transcription = message.data.get("transcription")
+        try:
+            if "bluetooth" in transcription or "blue tooth" in transcription:
+                service = "bluetooth"
+                status = "running" if get_service_status("bluetooth") else "not running"
+            if "kde connect" in transcription or "kay dee ee connect" in transcription:
+                service = "kay dee ee connect"  # Since this is spoken
+                status = "running" if get_service_status("kdeconnect") else "not running"
+            if "airplay" in transcription or "air play" in transcription:
+                service = "airplay"
+                status = "running" if get_service_status("uxplay") else "not running"
+            if "spotify" in transcription:
+                service = "spotify"
+                status = "running" if get_service_status("raspotify") else "not running"
+            if service and status:
+                self.speak_dialog("service-status", data={"service": service, "status": status})
+            else:
+                self.speak_dialog("unsure")
+        except CalledProcessError:
+            self.speak_dialog("trouble-checking-service", data={"service": service})
+        except:
+            self.speak_dialog("generic-error")
+
+    # Enable services
+    @intent_handler("disable-bluetooth.intent")
+    def disable_bluetooth_intent(self, _) -> None:
+        """Handle intent to disable Bluetooth."""
+        self._disable_service(service="bluetooth", spoken_service="bluetooth")
+
+    @intent_handler("disable-airplay.intent")
+    def disable_airplay_intent(self, _) -> None:
+        """Handle intent to disable Airplay (UxPlay service)."""
+        self._disable_service(service="uxplay", spoken_service="airplay")
+
+    @intent_handler("disable-kde-connect.intent")
+    def disable_kde_connect_intent(self, _) -> None:
+        """Handle intent to disable KDE Connect."""
+        self._disable_service(service="kdeconnect", spoken_service="kay dee ee connect")
+
+    @intent_handler("disable-spotify.intent")
+    def disable_spotify_intent(self, _) -> None:
+        """Handle intent to disable Spotify."""
+        self._disable_service(service="raspotify", spoken_service="spotify")
+
+    # Enable services
+    @intent_handler("enable-bluetooth.intent")
+    def enable_bluetooth_intent(self, _) -> None:
+        """Handle intent to enable Bluetooth."""
+        self._enable_service(service="bluetooth", spoken_service="bluetooth")
+
+    @intent_handler("enable-airplay.intent")
+    def enable_airplay_intent(self, _) -> None:
+        """Handle intent to enable Airplay (UxPlay service)."""
+        self._enable_service(service="uxplay", spoken_service="airplay")
+
+    @intent_handler("enable-kde-connect.intent")
+    def enable_kde_connect_intent(self, _) -> None:
+        """Handle intent to enable KDE Connect."""
+        self._enable_service(service="kdeconnect", spoken_service="kay dee ee connect")
+
+    @intent_handler("enable-spotify.intent")
+    def enable_spotify_intent(self, _) -> None:
+        """Handle intent to enable Spotify (Raspotify service)."""
+        self._enable_service(service="raspotify", spoken_service="spotify")
+
+    # Rename devices in services
+    @intent_handler("rename-airplay.intent")
+    def rename_airplay_intent(self, _) -> None:
+        """Handle intent to rename the Airplay device."""
+        self.renaming_airplay = True
+        attempts = 1
+        # TODO: Text box and keyboard for entry
+        new_name, confirmation = self._get_new_device_name()
+        if confirmation == "yes":
+            # TODO: Move to admin PHAL
+            try:
+                self.renaming_airplay = False
+                set_uxplay_device_name(new_name)
+                self.settings.get["airplay_name"] = new_name
+                self.speak_dialog("renamed-device", data={"service": "airplay", "name": new_name})
+            except CalledProcessError:
+                self.speak_dialog("trouble-renaming-device", data={"service": "airplay"})
+            except:
+                self.speak_dialog("generic-error")
+        if confirmation == "no" and attempts <= 3:
+            attempts += 1
+            new_name, confirmation = self._get_new_device_name()
+        if confirmation == "no" and attempts > 3:
+            self.renaming_airplay = False
+            self.speak_dialog("try-again-later")
+
+    @intent_handler("rename-spotify.intent")
+    def rename_spotify_intent(self, _) -> None:
+        """Handle intent to rename the Raspotify device advertised to Spotify Connect."""
+        self.renaming_spotify = True
+        attempts = 1
+        # TODO: Text box and keyboard for entry
+        new_name, confirmation = self._get_new_device_name()
+        if confirmation == "yes":
+            # TODO: Move to admin PHAL
+            try:
+                self.renaming_spotify = False
+                set_raspotify_device_name(new_name)
+                self.settings.get["raspotify_name"] = new_name
+                self.speak_dialog("renamed-device", data={"service": "spotify", "name": new_name})
+            except CalledProcessError:
+                self.speak_dialog("trouble-renaming-device", data={"service": "spotify"})
+            except:
+                self.speak_dialog("generic-error")
+        if confirmation == "no" and attempts <= 3:
+            attempts += 1
+            new_name, confirmation = self._get_new_device_name()
+        if confirmation == "no" and attempts > 3:
+            self.renaming_airplay = False
+            self.speak_dialog("try-again-later")
+
+    @intent_handler("pair-bluetooth.intent")
+    def pair_bluetooth_intent(self, _) -> None:
+        """Handle intent to pair the Mark 2 as a Bluetooth speaker."""
+        return  # TODO:
+
+    @intent_handler("pair-kde-connect.intent")
+    def pair_kde_connect_intent(self, _) -> None:
+        """Handle intent to pair the Mark 2 to available KDE Connect devices."""
+        return  # TODO:
+
+    def stop(self):
+        """Optional action to take when "stop" is requested by the user.
+        This method should return True if it stopped something or
+        False (or None) otherwise.
+        """
+        if self.renaming_airplay is True:
+            self.renaming_airplay = False
+        if self.renaming_spotify is True:
+            self.renaming_spotify = False
+
+    # "Private" methods
+    def _disable_service(self, service: str, spoken_service: str):
+        """Disable and stop a given systemd service, then speak confirmation to the user."""
+        # TODO: Move to admin PHAL
+        interact_with_service(service, "disable")
+        interact_with_service(service, "stop")
+        new_status = "disabled" if not get_service_status(service) else "enabled"
+        self.speak_dialog("disabled-service", data={"service": spoken_service, "status": new_status})
+
+    def _enable_service(self, service: str, spoken_service: str):
+        """Enable and start a given systemd service, then speak confirmation to the user."""
+        # TODO: Move to admin PHAL
+        interact_with_service(service, "enable")
+        interact_with_service(service, "start")
+        new_status = "disabled" if not get_service_status(service) else "enabled"
+        self.speak_dialog("enabled-service", data={"service": spoken_service, "status": new_status})
+
+    def _get_new_device_name(self):
+        new_name = self.get_response("get-new-name")
+        self.gui.show_text(new_name)
+        confirmation = self.ask_yesno("confirm-new-name", data={"name": new_name})
+        return new_name, confirmation

@@ -22,17 +22,16 @@ Supported in Neon versions after mid-August (TODO: Specific version when it's av
 
 ## Examples
 
-- "Tell me about bluetooth"
-- "Tell me about airplay"
-- "Tell me about Spotify"
-- "Tell me about KDE Connect"
+- "Is bluetooth enabled?"
+- "Is airplay enabled?"
+- "Is Spotify enabled?"
+- "Is KDE Connect enabled?"
 - "Disable airplay"
 - "Deactivate bluetooth"
 - "Enable KDE Connect"
 - "Activate Spotify"
 - "Rename Airplay device"
 - "Rename Spotify device"
-- "Rename KDE Connect device"
 - "Pair Bluetooth"
 - "Pair KDE Connect"
 
