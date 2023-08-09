@@ -221,16 +221,22 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
     @intent_handler("pair-bluetooth.intent")
     def pair_bluetooth_intent(self, _) -> None:
         """Handle intent to pair the Mark 2 as a Bluetooth speaker."""
-        timeout = self.get_bluetooth_timeout()
-        self.speak_dialog("pairing", data={"service": "bluetooth", "timeout": timeout})
-        auto_pair_bluetooth(timeout)
+        if get_service_status("bluetooth") is True:
+            timeout = self.get_bluetooth_timeout()
+            self.speak_dialog("pairing", data={"service": "bluetooth", "timeout": timeout})
+            auto_pair_bluetooth(timeout)
+        else:
+            self.speak_dialog("service-status", data={"service": "bluetooth", "status": "disabled"})
 
     @intent_handler("pair-kde-connect.intent")
     def pair_kde_connect_intent(self, _) -> None:
         """Handle intent to pair the Mark 2 to available KDE Connect devices."""
-        timeout = self.get_kdeconnect_timeout()
-        self.speak_dialog("pairing", data={"service": "kay dee ee connect", "timeout": timeout})
-        auto_pair_kdeconnect(timeout)
+        if get_service_status("kdeconnect") is True:
+            timeout = self.get_kdeconnect_timeout()
+            self.speak_dialog("pairing", data={"service": "kay dee ee connect", "timeout": timeout})
+            auto_pair_kdeconnect(timeout)
+        else:
+            self.speak_dialog("service-status", data={"service": "kay dee ee connect", "status": "disabled"})
 
     def stop(self):
         """Optional action to take when "stop" is requested by the user.
