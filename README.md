@@ -2,8 +2,6 @@
 
 ## About
 
-TODO: Write the skill around all these functions
-
 This skill enables voice intents for the following audio receiver options on the Mycroft Mark 2 device:
 
 - Airplay (via [UxPlay](https://github.com/FDH2/UxPlay))
@@ -48,11 +46,3 @@ Device Control
 ## Tags
 
 #Neon #devicecontrol #spotify #kdeconnect #airplay #bluetooth #mark2 #audio #cast
-
-## Testing
-
-`pytest -vvv --cov=skill_mark2_audio_receiver` will execute the unit tests, which can run in any environment.
-
-For integration testing, clone this repo on a Mark 2 with the mid-August Neon image or later and execute `/home/neon/venv/bin/python tests/integration/integration.py`
-
-The `integration.py` file has a couple of commented tests - these are the auto-pairing tests and tests to set device names. Since those require external interaction it's best to run them one at a time as you're ready.
