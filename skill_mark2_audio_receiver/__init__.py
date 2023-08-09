@@ -8,6 +8,7 @@ from ovos_workshop.decorators import intent_handler
 from ovos_workshop.skills import OVOSSkill
 from skill_mark2_audio_receiver.systemd import interact_with_service, get_service_status
 from skill_mark2_audio_receiver.rename import set_uxplay_device_name, set_raspotify_device_name
+from skill_mark2_audio_receiver.pair import auto_pair_bluetooth, auto_pair_kdeconnect
 
 
 def read_file(file_path: str) -> List[str]:
@@ -101,7 +102,7 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
         """Check if we have a certain service enabled."""
         service = ""
         status = ""
-        transcription = message.data.get("transcription")
+        transcription = message.data.get("utterance", "")
         try:
             if "bluetooth" in transcription or "blue tooth" in transcription:
                 service = "bluetooth"
@@ -220,12 +221,16 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
     @intent_handler("pair-bluetooth.intent")
     def pair_bluetooth_intent(self, _) -> None:
         """Handle intent to pair the Mark 2 as a Bluetooth speaker."""
-        return  # TODO:
+        timeout = self.get_bluetooth_timeout()
+        self.speak_dialog("pairing", data={"service": "bluetooth", "timeout": timeout})
+        auto_pair_bluetooth(timeout)
 
     @intent_handler("pair-kde-connect.intent")
     def pair_kde_connect_intent(self, _) -> None:
         """Handle intent to pair the Mark 2 to available KDE Connect devices."""
-        return  # TODO:
+        timeout = self.get_kdeconnect_timeout()
+        self.speak_dialog("pairing", data={"service": "kay dee ee connect", "timeout": timeout})
+        auto_pair_kdeconnect(timeout)
 
     def stop(self):
         """Optional action to take when "stop" is requested by the user.
