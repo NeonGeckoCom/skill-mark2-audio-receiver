@@ -20,6 +20,8 @@ It allows you to:
 
 Supported in Neon versions after mid-August (TODO: Specific version when it's available)
 
+Requires [neon-phal-plugin-audio-receiver](), an admin PHAL plugin that handles the portions of the code that require `sudo`.
+
 ## Examples
 
 - "Is bluetooth enabled?"
