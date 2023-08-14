@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-from setuptools import setup
 from os import walk, path
+from setuptools import setup
 
 
 BASEDIR = path.abspath(path.dirname(__file__))
