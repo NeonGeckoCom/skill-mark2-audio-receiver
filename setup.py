@@ -71,7 +71,7 @@ setup(
     url=URL,
     author="Mike Gray",
     author_email="mike@graywind.org",
-    license="Apache-2.0",
+    license_files=["LICENSE.md"],
     package_dir={SKILL_PKG: ""},
     package_data={SKILL_PKG: find_resource_files()},
     packages=[SKILL_PKG],
