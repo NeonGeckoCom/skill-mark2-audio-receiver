@@ -2,13 +2,7 @@
 from setuptools import setup
 from os import walk, path
 
-{
-    "type": "@mikejgray/ovos-skill-projen.OVOSSkillProject",
-    "name": "skill-mark2-audio-receiver",
-    "author": "Mike Gray",
-    "authorAddress": "mike@graywind.org",
-    "authorHandle": "mikejgray",
-}
+
 BASEDIR = path.abspath(path.dirname(__file__))
 URL = "https://github.com/mikejgray/skill-mark2-audio-receiver"
 SKILL_CLAZZ = "MarkIIAudioReceiverSkill"  # needs to match __init__.py class name
@@ -65,7 +59,7 @@ def find_resource_files():
     return package_data
 
 
-with open("README.md", "r") as f:
+with open(path.join(path.dirname(__file__), "README.md"), "r") as f:
     long_description = f.read()
 
 setup(
