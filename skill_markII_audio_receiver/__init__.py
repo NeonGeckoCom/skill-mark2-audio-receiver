@@ -8,7 +8,7 @@ from ovos_utils.parse import fuzzy_match
 from ovos_utils.process_utils import RuntimeRequirements
 from ovos_workshop.decorators import intent_handler
 from ovos_workshop.skills import OVOSSkill
-from skill_mark2_audio_receiver.systemd import get_service_status
+from skill_markII_audio_receiver.systemd import get_service_status
 
 
 def read_file(file_path: str) -> List[str]:

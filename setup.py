@@ -6,14 +6,14 @@ from setuptools import setup
 BASEDIR = path.abspath(path.dirname(__file__))
 URL = "https://github.com/mikejgray/skill-mark2-audio-receiver"
 SKILL_CLAZZ = "MarkIIAudioReceiverSkill"  # needs to match __init__.py class name
-PYPI_NAME = "skill-mark2-audio-receiver"  # pip install PYPI_NAME
+PYPI_NAME = "skill-markII-audio-receiver"  # pip install PYPI_NAME
 
 # below derived from github url to ensure standard skill_id
 SKILL_AUTHOR, SKILL_NAME = URL.split(".com/")[-1].split("/")
 SKILL_PKG = SKILL_NAME.lower().replace("-", "_")
 PLUGIN_ENTRY_POINT = f"{SKILL_NAME.lower()}.{SKILL_AUTHOR.lower()}={SKILL_PKG}:{SKILL_CLAZZ}"
 # skill_id=package_name:SkillClass
-BASE_PATH = path.abspath(path.join(path.dirname(__file__), "skill_mark2_audio_receiver"))
+BASE_PATH = path.abspath(path.join(path.dirname(__file__), "skill_markII_audio_receiver"))
 
 
 def get_version():

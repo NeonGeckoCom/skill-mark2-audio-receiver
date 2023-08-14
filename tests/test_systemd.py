@@ -2,7 +2,7 @@
 from unittest.mock import patch, Mock
 import pytest
 
-from skill_mark2_audio_receiver.systemd import (
+from skill_markII_audio_receiver.systemd import (
     get_service_status,
     normalize_service_name,
 )

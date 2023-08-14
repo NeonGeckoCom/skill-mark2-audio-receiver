@@ -1,7 +1,7 @@
-# from skill_mark2_audio_receiver.pair import auto_pair_bluetooth, auto_pair_kdeconnect
-# from skill_mark2_audio_receiver.rename import set_raspotify_device_name
-# from skill_mark2_audio_receiver.rename import set_uxplay_device_name
-from skill_mark2_audio_receiver.systemd import interact_with_service, get_service_status
+# from skill_markII_audio_receiver.pair import auto_pair_bluetooth, auto_pair_kdeconnect
+# from skill_markII_audio_receiver.rename import set_raspotify_device_name
+# from skill_markII_audio_receiver.rename import set_uxplay_device_name
+from skill_markII_audio_receiver.systemd import interact_with_service, get_service_status
 
 # auto_pair_bluetooth()
 # auto_pair_kdeconnect()

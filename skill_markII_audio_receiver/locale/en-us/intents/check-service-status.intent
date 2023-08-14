@@ -1,0 +1,13 @@
+  - check-service-status.intent
+  - disable-airplay.intent
+  - disable-bluetooth.intent
+  - disable-kde-connect.intent
+  - disable-spotify.intent
+  - enable-airplay.intent
+  - enable-bluetooth.intent
+  - enable-kde-connect.intent
+  - enable-spotify.intent
+  - pair-bluetooth.intent
+  - pair-kde-connect.intent
+  - rename-airplay.intent
+  - rename-spotify.intent
