@@ -23,9 +23,9 @@
     "systemDeps": false,
     "requirements": {
         "python": [
+            "ovos-workshop>=0.0.12a7,<0.0.12",
             "ovos_bus_client",
-            "ovos_utils",
-            "ovos_workshop"
+            "ovos_utils"
         ],
         "system": {},
         "skill": []
