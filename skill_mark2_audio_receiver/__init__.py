@@ -40,7 +40,7 @@ def write_to_file(file_path: str, content: List[str]) -> None:
 class MarkIIAudioReceiverSkill(OVOSSkill):
     """Skill to control Audio Receiver options for Neon.AI Mark 2 Images."""
 
-    def __init__(self, bus=None, config=None, *args, **kwargs):
+    def __init__(self, *args, bus=None, config=None, **kwargs):
         """The __init__ method is called when the Skill is first constructed.
         Note that self.bus, self.skill_id, self.settings, and
         other base class settings are only available after the call to super().
