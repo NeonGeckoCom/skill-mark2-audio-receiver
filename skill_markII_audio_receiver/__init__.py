@@ -45,7 +45,7 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
         Note that self.bus, self.skill_id, self.settings, and
         other base class settings are only available after the call to super().
         """
-        super(OVOSSkill, self).__init__(*args, **kwargs)
+        super(OVOSSkill, self).__init__(*args, **kwargs, name="MarkIIAudioReceiverSkill")
         self.renaming_airplay = False
         self.renaming_spotify = False
 
