@@ -69,10 +69,7 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
         If it doesn't exist, return the default value.
         This will reflect live changes to settings.json files (local or from backend)
         """
-        if isinstance(self.settings, dict):
-            return self.settings.get("bluetooth_timeout", 60)
-        else:
-            return 60
+        return self.settings.get("bluetooth_timeout", 60)
 
     @property
     def get_kdeconnect_timeout(self):
@@ -80,10 +77,7 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
         If it doesn't exist, return the default value.
         This will reflect live changes to settings.json files (local or from backend)
         """
-        if isinstance(self.settings, dict):
-            return self.settings.get("kdeconnect_timeout", 30)
-        else:
-            return 30
+        return self.settings.get("kdeconnect_timeout", 30)
 
     @property
     def get_raspotify_name(self):
@@ -226,7 +220,7 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
     def pair_bluetooth_intent(self, _) -> None:
         """Handle intent to pair the Mark 2 as a Bluetooth speaker."""
         if get_service_status("bluetooth") is True:
-            timeout = self.get_bluetooth_timeout()
+            timeout = self.get_bluetooth_timeout
             self.speak_dialog("pairing", data={"service": "bluetooth", "timeout": timeout})
             self.bus.emit(Message("neon.phal.plugin.audio.receiver.pair.bluetooth", {"timeout": timeout}))
         else:
@@ -236,7 +230,7 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
     def pair_kde_connect_intent(self, _) -> None:
         """Handle intent to pair the Mark 2 to available KDE Connect devices."""
         if get_service_status("kdeconnect") is True:
-            timeout = self.get_kdeconnect_timeout()
+            timeout = self.get_kdeconnect_timeout
             self.speak_dialog("pairing", data={"service": "K.D.E. connect", "timeout": timeout})
             self.bus.emit(Message("neon.phal.plugin.audio.receiver.pair.kdeconnect", {"timeout": timeout}))
         else:
