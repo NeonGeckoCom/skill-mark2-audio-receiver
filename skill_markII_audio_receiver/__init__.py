@@ -69,7 +69,10 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
         If it doesn't exist, return the default value.
         This will reflect live changes to settings.json files (local or from backend)
         """
-        return self.settings.get("bluetooth_timeout", 60)
+        if isinstance(self.settings, dict):
+            return self.settings.get("bluetooth_timeout", 60)
+        else:
+            return 60
 
     @property
     def get_kdeconnect_timeout(self):
@@ -77,7 +80,10 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
         If it doesn't exist, return the default value.
         This will reflect live changes to settings.json files (local or from backend)
         """
-        return self.settings.get("kdeconnect_timeout", 30)
+        if isinstance(self.settings, dict):
+            return self.settings.get("kdeconnect_timeout", 30)
+        else:
+            return 30
 
     @property
     def get_raspotify_name(self):
