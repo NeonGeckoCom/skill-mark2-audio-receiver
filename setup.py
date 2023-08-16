@@ -72,7 +72,7 @@ setup(
     author="Mike Gray",
     author_email="mike@graywind.org",
     license_files=["LICENSE.md"],
-    package_dir={SKILL_PKG: ""},
+    package_dir={SKILL_PKG: "skill_markII_audio_receiver"},
     package_data={SKILL_PKG: find_resource_files()},
     packages=[SKILL_PKG],
     include_package_data=True,
