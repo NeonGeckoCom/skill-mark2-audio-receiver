@@ -178,12 +178,14 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
         if confirmation == "yes":
             try:
                 self.renaming_airplay = False
+                self.log.debug(f"Renaming Airplay device to {new_name}")
                 self.bus.emit(Message("neon.phal.plugin.audio.receiver.set.uxplay.name", {"name": new_name}))
-                self.settings.get["airplay_name"] = new_name
+                self.settings["airplay_name"] = new_name
                 self.speak_dialog("renamed-device", data={"service": "airplay", "name": new_name})
             except CalledProcessError:
                 self.speak_dialog("trouble-renaming-device", data={"service": "airplay"})
-            except:
+            except Exception as err:
+                self.log.err(err)
                 self.speak_dialog("generic-error")
         if confirmation == "no" and attempts <= 3:
             attempts += 1
@@ -202,12 +204,14 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
         if confirmation == "yes":
             try:
                 self.renaming_spotify = False
+                self.log.debug(f"Renaming Raspotify device to {new_name}")
                 self.bus.emit(Message("neon.phal.plugin.audio.receiver.set.raspotify.name", {"name": new_name}))
-                self.settings.get["raspotify_name"] = new_name
+                self.settings["raspotify_name"] = new_name
                 self.speak_dialog("renamed-device", data={"service": "spotify", "name": new_name})
             except CalledProcessError:
                 self.speak_dialog("trouble-renaming-device", data={"service": "spotify"})
-            except:
+            except Exception as err:
+                self.log.error(err)
                 self.speak_dialog("generic-error")
         if confirmation == "no" and attempts <= 3:
             attempts += 1
