@@ -1,0 +1,43 @@
+# Specify resources to test here.
+
+# Specify languages to be tested
+languages:
+  - "en-us"
+
+# vocab is lowercase .voc file basenames
+vocab: []
+
+# dialog is .dialog file basenames (case-sensitive)
+dialog:
+  - acknowledge
+  - disabled-service
+  - enabled-service
+  - generic-error
+  - get-new-name
+  - pairing
+  - renamed-device
+  - service-status
+  - trouble-checking-service
+  - trouble-renaming-device
+  - try-again-later
+  - unsure
+# regex entities, not necessarily filenames
+regex: []
+intents:
+  # Padatious intents are the `.intent` file names
+  padatious:
+    - check-service-status.intent
+    - disable-airplay.intent
+    - disable-bluetooth.intent
+    - disable-kde-connect.intent
+    - disable-spotify.intent
+    - enable-airplay.intent
+    - enable-bluetooth.intent
+    - enable-kde-connect.intent
+    - enable-spotify.intent
+    - pair-bluetooth.intent
+    - pair-kde-connect.intent
+    - rename-airplay.intent
+    - rename-spotify.intent
+  # Adapt intents are the name passed to the constructor
+  adapt: []

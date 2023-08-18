@@ -8,7 +8,7 @@ from ovos_utils.parse import fuzzy_match
 from ovos_utils.process_utils import RuntimeRequirements
 from ovos_workshop.decorators import intent_handler
 from ovos_workshop.skills import OVOSSkill
-from skill_mark2_audio_receiver.systemd import get_service_status
+from skill_markII_audio_receiver.systemd import get_service_status
 
 
 def read_file(file_path: str) -> List[str]:
@@ -40,12 +40,12 @@ def write_to_file(file_path: str, content: List[str]) -> None:
 class MarkIIAudioReceiverSkill(OVOSSkill):
     """Skill to control Audio Receiver options for Neon.AI Mark 2 Images."""
 
-    def __init__(self, *args, bus=None, config=None, **kwargs):
+    def __init__(self, *args, **kwargs):
         """The __init__ method is called when the Skill is first constructed.
         Note that self.bus, self.skill_id, self.settings, and
         other base class settings are only available after the call to super().
         """
-        super().__init__(bus, config, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.renaming_airplay = False
         self.renaming_spotify = False
 
@@ -220,7 +220,7 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
     def pair_bluetooth_intent(self, _) -> None:
         """Handle intent to pair the Mark 2 as a Bluetooth speaker."""
         if get_service_status("bluetooth") is True:
-            timeout = self.get_bluetooth_timeout()
+            timeout = self.get_bluetooth_timeout
             self.speak_dialog("pairing", data={"service": "bluetooth", "timeout": timeout})
             self.bus.emit(Message("neon.phal.plugin.audio.receiver.pair.bluetooth", {"timeout": timeout}))
         else:
@@ -230,7 +230,7 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
     def pair_kde_connect_intent(self, _) -> None:
         """Handle intent to pair the Mark 2 to available KDE Connect devices."""
         if get_service_status("kdeconnect") is True:
-            timeout = self.get_kdeconnect_timeout()
+            timeout = self.get_kdeconnect_timeout
             self.speak_dialog("pairing", data={"service": "K.D.E. connect", "timeout": timeout})
             self.bus.emit(Message("neon.phal.plugin.audio.receiver.pair.kdeconnect", {"timeout": timeout}))
         else:

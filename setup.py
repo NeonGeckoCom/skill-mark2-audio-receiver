@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
-from setuptools import setup
 from os import walk, path
+from setuptools import setup
 
 
 BASEDIR = path.abspath(path.dirname(__file__))
 URL = "https://github.com/mikejgray/skill-mark2-audio-receiver"
 SKILL_CLAZZ = "MarkIIAudioReceiverSkill"  # needs to match __init__.py class name
-PYPI_NAME = "skill-mark2-audio-receiver"  # pip install PYPI_NAME
+PYPI_NAME = "skill-markII-audio-receiver"  # pip install PYPI_NAME
 
 # below derived from github url to ensure standard skill_id
 SKILL_AUTHOR, SKILL_NAME = URL.split(".com/")[-1].split("/")
-SKILL_PKG = SKILL_NAME.lower().replace("-", "_")
+SKILL_PKG = "skill_markII_audio_receiver"
 PLUGIN_ENTRY_POINT = f"{SKILL_NAME.lower()}.{SKILL_AUTHOR.lower()}={SKILL_PKG}:{SKILL_CLAZZ}"
 # skill_id=package_name:SkillClass
-BASE_PATH = path.abspath(path.join(path.dirname(__file__), "skill_mark2_audio_receiver"))
+BASE_PATH = path.abspath(path.join(path.dirname(__file__), "skill_markII_audio_receiver"))
 
 
 def get_version():
@@ -72,7 +72,7 @@ setup(
     author="Mike Gray",
     author_email="mike@graywind.org",
     license_files=["LICENSE.md"],
-    package_dir={SKILL_PKG: ""},
+    package_dir={SKILL_PKG: "skill_markII_audio_receiver"},
     package_data={SKILL_PKG: find_resource_files()},
     packages=[SKILL_PKG],
     include_package_data=True,

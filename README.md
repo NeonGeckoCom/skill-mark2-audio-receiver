@@ -37,7 +37,7 @@ Requires [neon-phal-plugin-audio-receiver](), an admin PHAL plugin that handles 
 
 ## Credits
 
-[Mike Gray](@mikejgray)
+[Mike Gray](mike@graywind.org)
 
 ## Category
 
