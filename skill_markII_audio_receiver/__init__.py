@@ -108,7 +108,7 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
                 service = "bluetooth"
                 status = "running" if get_service_status("bluetooth") else "not running"
             if fuzzy_match("kde connect", transcription) >= 0.8:
-                service = "K.D.E. connect"  # Since this is spoken
+                service = "KDE connect"  # Since this is spoken
                 status = "running" if get_service_status("kdeconnect") else "not running"
             if "airplay" in transcription or "air play" in transcription:
                 service = "airplay"
@@ -139,7 +139,7 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
     @intent_handler("disable-kde-connect.intent")
     def disable_kde_connect_intent(self, _) -> None:
         """Handle intent to disable KDE Connect."""
-        self._disable_service(service="kdeconnect", spoken_service="K.D.E. connect")
+        self._disable_service(service="kdeconnect", spoken_service="KDE connect")
 
     @intent_handler("disable-spotify.intent")
     def disable_spotify_intent(self, _) -> None:
@@ -160,7 +160,7 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
     @intent_handler("enable-kde-connect.intent")
     def enable_kde_connect_intent(self, _) -> None:
         """Handle intent to enable KDE Connect."""
-        self._enable_service(service="kdeconnect", spoken_service="K.D.E. connect")
+        self._enable_service(service="kdeconnect", spoken_service="KDE connect")
 
     @intent_handler("enable-spotify.intent")
     def enable_spotify_intent(self, _) -> None:
@@ -231,10 +231,10 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
         """Handle intent to pair the Mark 2 to available KDE Connect devices."""
         if get_service_status("kdeconnect") is True:
             timeout = self.get_kdeconnect_timeout
-            self.speak_dialog("pairing", data={"service": "K.D.E. connect", "timeout": timeout})
+            self.speak_dialog("pairing", data={"service": "KDE connect", "timeout": timeout})
             self.bus.emit(Message("neon.phal.plugin.audio.receiver.pair.kdeconnect", {"timeout": timeout}))
         else:
-            self.speak_dialog("service-status", data={"service": "K.D.E. connect", "status": "disabled"})
+            self.speak_dialog("service-status", data={"service": "KDE connect", "status": "disabled"})
 
     def stop(self):
         """Optional action to take when "stop" is requested by the user.
