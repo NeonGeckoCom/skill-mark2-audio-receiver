@@ -1,4 +1,2 @@
-disable kde connect
-disable kde connect
-deactivate kay dee ee connect
-deactivate kay dee ee connect
+disable (kde connect|kay dee ee connect|k.d.e. connect)
+deactivate (kde connect|kay dee ee connect|k.d.e. connect)
