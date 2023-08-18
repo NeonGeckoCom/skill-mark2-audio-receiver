@@ -172,7 +172,7 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
     def rename_airplay_intent(self, _) -> None:
         """Handle intent to rename the Airplay device."""
         self.renaming_airplay = True
-        attempts = 1
+        attempts = 0
         # TODO: Text box and keyboard for entry
         new_name, confirmation = self._get_new_device_name()
         if confirmation == "yes":
@@ -198,7 +198,7 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
     def rename_spotify_intent(self, _) -> None:
         """Handle intent to rename the Raspotify device advertised to Spotify Connect."""
         self.renaming_spotify = True
-        attempts = 1
+        attempts = 0
         # TODO: Text box and keyboard for entry
         new_name, confirmation = self._get_new_device_name()
         if confirmation == "yes":
