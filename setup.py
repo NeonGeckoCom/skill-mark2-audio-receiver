@@ -4,7 +4,7 @@ from setuptools import setup
 
 
 BASEDIR = path.abspath(path.dirname(__file__))
-URL = "https://github.com/mikejgray/skill-mark2-audio-receiver"
+URL = "https://github.com/NeonGeckoCom/skill-mark2-audio-receiver"
 SKILL_CLAZZ = "MarkIIAudioReceiverSkill"  # needs to match __init__.py class name
 PYPI_NAME = "skill-markII-audio-receiver"  # pip install PYPI_NAME
 
