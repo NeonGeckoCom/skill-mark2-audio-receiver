@@ -20,9 +20,10 @@ jobs:
       contents: write
       packages: write
     uses: neongeckocom/.github/.github/workflows/propose_semver_release.yml@master
+    secrets: inherit
     with:
       release_type: ${{ inputs.release_type }}
-      version_file: version.py
+      version_file: skill_markII_audio_receiver/version.py
       alpha_var: VERSION_ALPHA
       build_var: VERSION_BUILD
       minor_var: VERSION_MINOR
