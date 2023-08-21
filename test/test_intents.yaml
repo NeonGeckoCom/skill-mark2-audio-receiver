@@ -42,5 +42,4 @@ en-us:
     - is kay dee ee connect enabled
     - is kay dee ee connect turned on
     - is kay dee ee connect disabled
-  - Neon shut down please:
-      - shutdown
+  # TODO: Add tests for service enable/disable, pair, and rename intents
