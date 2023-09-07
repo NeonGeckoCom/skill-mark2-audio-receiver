@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.4a1](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/tree/0.0.4a1) (2023-09-07)
+
+[Full Changelog](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/compare/0.0.2a2...0.0.4a1)
+
+**Merged pull requests:**
+
+- fix: Update release action to troubleshoot run failures [\#12](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/pull/12) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [0.0.2a2](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/tree/0.0.2a2) (2023-09-07)
 
 [Full Changelog](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/compare/0.0.2a1...0.0.2a2)
