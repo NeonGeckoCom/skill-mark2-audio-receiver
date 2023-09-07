@@ -11,14 +11,9 @@ on:
           - build
           - minor
           - major
-          - patch
-          - alpha
 jobs:
   update_version:
     name: update_version
-    permissions:
-      contents: write
-      packages: write
     uses: neongeckocom/.github/.github/workflows/propose_semver_release.yml@master
     secrets: inherit
     with:
@@ -32,8 +27,6 @@ jobs:
       branch: dev
   pull_changes:
     needs: update_version
-    permissions:
-      contents: write
     uses: neongeckocom/.github/.github/workflows/pull_master.yml@master
     with:
       pr_assignee: ${{ github.actor }}
