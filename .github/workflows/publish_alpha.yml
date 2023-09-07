@@ -5,17 +5,14 @@ on:
   push:
     branches:
       - dev
-    paths:
-      - "!version.py"
-      - "!test/**"
-      - "!examples/**"
-      - "!.github/**"
-      - "!.gitignore"
-      - "!LICENSE"
-      - "!CHANGELOG.md"
-      - "!MANIFEST.in"
-      - "!README.md"
-      - "!scripts/*"
+    paths_ignore:
+      - "version.py"
+      - ".github/**"
+      - ".gitignore"
+      - "LICENSE"
+      - "CHANGELOG.md"
+      - "MANIFEST.in"
+      - "README.md"
   workflow_dispatch: {}
 jobs:
   publish_alpha_release:
