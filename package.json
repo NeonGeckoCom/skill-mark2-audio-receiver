@@ -1,6 +1,0 @@
-{
-  "devDependencies": {
-    "@mikejgray/projen-python-base": "github:mikejgray/projen-python-base",
-    "projen": "^0.72.2"
-  }
-}
