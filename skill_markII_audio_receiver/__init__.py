@@ -48,6 +48,15 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
         super().__init__(*args, **kwargs)
         self.renaming_airplay = False
         self.renaming_spotify = False
+        self.initialize()
+
+    def initialize(self):
+        airplay_name = self.airplay_name or 'uxplay@neon'
+        self.log.info("Initializing Mark II Audio Receiver Skill with settings:")
+        self.log.info(f"Renaming Raspotify device to settings value of {self.raspotify_name}")
+        self.bus.emit(Message("neon.phal.plugin.audio.receiver.set.raspotify.name", {"name": self.raspotify_name}))
+        self.log.info(f"Renaming Airplay device to settings value of {airplay_name}")
+        self.bus.emit(Message("neon.phal.plugin.audio.receiver.set.uxplay.name", {"name": airplay_name}))
 
     @classproperty
     def runtime_requirements(self):
@@ -64,7 +73,7 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
         )
 
     @property
-    def get_bluetooth_timeout(self):
+    def bluetooth_timeout(self):
         """Dynamically get the bluetooth_timeout from the skill settings file.
         If it doesn't exist, return the default value.
         This will reflect live changes to settings.json files (local or from backend)
@@ -72,7 +81,7 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
         return self.settings.get("bluetooth_timeout", 60)
 
     @property
-    def get_kdeconnect_timeout(self):
+    def kdeconnect_timeout(self):
         """Dynamically get the kdeconnect_timeout from the skill settings file.
         If it doesn't exist, return the default value.
         This will reflect live changes to settings.json files (local or from backend)
@@ -80,7 +89,7 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
         return self.settings.get("kdeconnect_timeout", 30)
 
     @property
-    def get_raspotify_name(self):
+    def raspotify_name(self):
         """Dynamically get the raspotify_name from the skill settings file.
         If it doesn't exist, return the default value.
         This will reflect live changes to settings.json files (local or from backend)
@@ -88,7 +97,7 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
         return self.settings.get("raspotify_name", "Neon Mark 2")
 
     @property
-    def get_airplay_name(self):
+    def airplay_name(self):
         """Dynamically get the airplay_name from the skill settings file.
         If it doesn't exist, return the default value.
         This will reflect live changes to settings.json files (local or from backend)
