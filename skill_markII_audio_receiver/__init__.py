@@ -48,9 +48,6 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
         super().__init__(*args, **kwargs)
         self.renaming_airplay = False
         self.renaming_spotify = False
-        self.initialize()
-
-    def initialize(self):
         airplay_name = self.airplay_name or 'uxplay@neon'
         self.log.info("Initializing Mark II Audio Receiver Skill with settings:")
         self.log.info(f"Renaming Raspotify device to settings value of {self.raspotify_name}")
