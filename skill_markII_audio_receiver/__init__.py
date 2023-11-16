@@ -48,7 +48,7 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
         super().__init__(*args, **kwargs)
         self.renaming_airplay = False
         self.renaming_spotify = False
-        airplay_name = self.airplay_name or 'uxplay@neon'
+        airplay_name = self.airplay_name
         self.log.info("Initializing Mark II Audio Receiver Skill with settings:")
         self.log.info(f"Renaming Raspotify device to settings value of {self.raspotify_name}")
         self.bus.emit(Message("neon.phal.plugin.audio.receiver.set.raspotify.name", {"name": self.raspotify_name}))
@@ -99,7 +99,7 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
         If it doesn't exist, return the default value.
         This will reflect live changes to settings.json files (local or from backend)
         """
-        # Note that the default is actually uxplay@hostname, so for the config we default to ""
+        # Note that the default is actually UxPlay@hostname, so for the config we default to ""
         # This is an override setting only
         return self.settings.get("airplay_name", "")
 
