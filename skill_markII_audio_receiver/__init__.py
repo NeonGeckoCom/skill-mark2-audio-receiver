@@ -153,49 +153,65 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
 
     # Enable services
     @intent_handler("disable-bluetooth.intent")
-    def disable_bluetooth_intent(self, _) -> None:
+    def disable_bluetooth_intent(self, message: Message) -> None:
         """Handle intent to disable Bluetooth."""
-        self._disable_service(service="bluetooth", spoken_service="bluetooth")
+        self._disable_service(
+            service="bluetooth", spoken_service="bluetooth", message=message
+        )
 
     @intent_handler("disable-airplay.intent")
-    def disable_airplay_intent(self, _) -> None:
+    def disable_airplay_intent(self, message: Message) -> None:
         """Handle intent to disable Airplay (UxPlay service)."""
-        self._disable_service(service="uxplay", spoken_service="airplay")
+        self._disable_service(
+            service="uxplay", spoken_service="airplay", message=message
+        )
 
     @intent_handler("disable-kde-connect.intent")
-    def disable_kde_connect_intent(self, _) -> None:
+    def disable_kde_connect_intent(self, message: Message) -> None:
         """Handle intent to disable KDE Connect."""
-        self._disable_service(service="kdeconnect", spoken_service="KDE connect")
+        self._disable_service(
+            service="kdeconnect", spoken_service="KDE connect", message=message
+        )
 
     @intent_handler("disable-spotify.intent")
-    def disable_spotify_intent(self, _) -> None:
+    def disable_spotify_intent(self, message: Message) -> None:
         """Handle intent to disable Spotify."""
-        self._disable_service(service="raspotify", spoken_service="spotify")
+        self._disable_service(
+            service="raspotify", spoken_service="spotify", message=message
+        )
 
     # Enable services
     @intent_handler("enable-bluetooth.intent")
-    def enable_bluetooth_intent(self, _) -> None:
+    def enable_bluetooth_intent(self, message: Message) -> None:
         """Handle intent to enable Bluetooth."""
-        self._enable_service(service="bluetooth", spoken_service="bluetooth")
+        self._enable_service(
+            service="bluetooth", spoken_service="bluetooth", message=message
+        )
 
     @intent_handler("enable-airplay.intent")
-    def enable_airplay_intent(self, _) -> None:
+    def enable_airplay_intent(self, message: Message) -> None:
         """Handle intent to enable Airplay (UxPlay service)."""
-        self._enable_service(service="uxplay", spoken_service="airplay")
+        self._enable_service(
+            service="uxplay", spoken_service="airplay", message=message
+        )
 
     @intent_handler("enable-kde-connect.intent")
-    def enable_kde_connect_intent(self, _) -> None:
+    def enable_kde_connect_intent(self, message: Message) -> None:
         """Handle intent to enable KDE Connect."""
-        self._enable_service(service="kdeconnect", spoken_service="KDE connect")
+        self._enable_service(
+            service="kdeconnect", spoken_service="KDE connect", message=message
+        )
 
     @intent_handler("enable-spotify.intent")
-    def enable_spotify_intent(self, _) -> None:
+    def enable_spotify_intent(self, message: Message) -> None:
         """Handle intent to enable Spotify (Raspotify service)."""
-        self._enable_service(service="raspotify", spoken_service="spotify")
+        self._enable_service(
+            service="raspotify", spoken_service="spotify", message=message
+        )
 
     # Rename devices in services
     @intent_handler("rename-airplay.intent")
-    def rename_airplay_intent(self, _) -> None:
+    def rename_airplay_intent(self, message: Message) -> None:
         """Handle intent to rename the Airplay device."""
         self.renaming_airplay = True
         attempts = 0
@@ -205,12 +221,9 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
             try:
                 self.renaming_airplay = False
                 self.log.debug(f"Renaming Airplay device to {new_name}")
-                self.bus.emit(
-                    Message(
-                        "neon.phal.plugin.audio.receiver.set.uxplay.name",
-                        {"name": new_name},
-                        {"skill_id": self.skill_id},
-                    )
+                message.forward(
+                    "neon.phal.plugin.audio.receiver.set.uxplay.name",
+                    {"name": new_name},
                 )
                 self.settings["airplay_name"] = new_name
                 self.speak_dialog(
@@ -231,7 +244,7 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
             self.speak_dialog("try-again-later")
 
     @intent_handler("rename-spotify.intent")
-    def rename_spotify_intent(self, _) -> None:
+    def rename_spotify_intent(self, message: Message) -> None:
         """Handle intent to rename the Raspotify device advertised to Spotify Connect."""
         self.renaming_spotify = True
         attempts = 0
@@ -241,12 +254,9 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
             try:
                 self.renaming_spotify = False
                 self.log.debug(f"Renaming Raspotify device to {new_name}")
-                self.bus.emit(
-                    Message(
-                        "neon.phal.plugin.audio.receiver.set.raspotify.name",
-                        {"name": new_name},
-                        {"skill_id": self.skill_id},
-                    )
+                message.forward(
+                    "neon.phal.plugin.audio.receiver.set.raspotify.name",
+                    {"name": new_name},
                 )
                 self.settings["raspotify_name"] = new_name
                 self.speak_dialog(
@@ -267,19 +277,16 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
             self.speak_dialog("try-again-later")
 
     @intent_handler("pair-bluetooth.intent")
-    def pair_bluetooth_intent(self, _) -> None:
+    def pair_bluetooth_intent(self, message: Message) -> None:
         """Handle intent to pair the Mark 2 as a Bluetooth speaker."""
         if get_service_status("bluetooth") is True:
             timeout = self.bluetooth_timeout
             self.speak_dialog(
                 "pairing", data={"service": "bluetooth", "timeout": timeout}
             )
-            self.bus.emit(
-                Message(
-                    "neon.phal.plugin.audio.receiver.pair.bluetooth",
-                    {"timeout": timeout},
-                    {"skill_id": self.skill_id},
-                )
+            message.forward(
+                "neon.phal.plugin.audio.receiver.pair.bluetooth",
+                {"timeout": timeout},
             )
         else:
             self.speak_dialog(
@@ -287,19 +294,16 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
             )
 
     @intent_handler("pair-kde-connect.intent")
-    def pair_kde_connect_intent(self, _) -> None:
+    def pair_kde_connect_intent(self, message: Message) -> None:
         """Handle intent to pair the Mark 2 to available KDE Connect devices."""
         if get_service_status("kdeconnect") is True:
             timeout = self.kdeconnect_timeout
             self.speak_dialog(
                 "pairing", data={"service": "KDE connect", "timeout": timeout}
             )
-            self.bus.emit(
-                Message(
-                    "neon.phal.plugin.audio.receiver.pair.kdeconnect",
-                    {"timeout": timeout},
-                    {"skill_id": self.skill_id},
-                )
+            message.forward(
+                "neon.phal.plugin.audio.receiver.pair.kdeconnect",
+                {"timeout": timeout},
             )
         else:
             self.speak_dialog(
@@ -317,41 +321,29 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
             self.renaming_spotify = False
 
     # "Private" methods
-    def _disable_service(self, service: str, spoken_service: str):
+    def _disable_service(self, service: str, spoken_service: str, message: Message):
         """Disable and stop a given systemd service, then speak confirmation to the user."""
-        self.bus.emit(
-            Message(
-                "neon.phal.plugin.audio.receiver.disable.service",
-                {"service": service},
-                {"skill_id": self.skill_id},
-            )
+        message.forward(
+            "neon.phal.plugin.audio.receiver.disable.service",
+            {"service": service},
         )
-        self.bus.emit(
-            Message(
-                "neon.phal.plugin.audio.receiver.stop.service",
-                {"service": service},
-                {"skill_id": self.skill_id},
-            )
+        message.forward(
+            "neon.phal.plugin.audio.receiver.stop.service",
+            {"service": service},
         )
         self.speak_dialog(
             "disabled-service", data={"service": spoken_service, "status": "disabled"}
         )
 
-    def _enable_service(self, service: str, spoken_service: str):
+    def _enable_service(self, service: str, spoken_service: str, message: Message):
         """Enable and start a given systemd service, then speak confirmation to the user."""
-        self.bus.emit(
-            Message(
-                "neon.phal.plugin.audio.receiver.enable.service",
-                {"service": service},
-                {"skill_id": self.skill_id},
-            )
+        message.forward(
+            "neon.phal.plugin.audio.receiver.enable.service",
+            {"service": service},
         )
-        self.bus.emit(
-            Message(
-                "neon.phal.plugin.audio.receiver.start.service",
-                {"service": service},
-                {"skill_id": self.skill_id},
-            )
+        message.forward(
+            "neon.phal.plugin.audio.receiver.start.service",
+            {"service": service},
         )
         self.speak_dialog(
             "enabled-service", data={"service": spoken_service, "status": "enabled"}
