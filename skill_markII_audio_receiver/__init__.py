@@ -59,6 +59,7 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
             Message(
                 "neon.phal.plugin.audio.receiver.set.raspotify.name",
                 {"name": self.raspotify_name},
+                {"skill_id": self.skill_id},
             )
         )
         self.log.info(f"Renaming Airplay device to settings value of {airplay_name}")
@@ -66,6 +67,7 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
             Message(
                 "neon.phal.plugin.audio.receiver.set.uxplay.name",
                 {"name": airplay_name},
+                {"skill_id": self.skill_id},
             )
         )
 
@@ -207,6 +209,7 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
                     Message(
                         "neon.phal.plugin.audio.receiver.set.uxplay.name",
                         {"name": new_name},
+                        {"skill_id": self.skill_id},
                     )
                 )
                 self.settings["airplay_name"] = new_name
@@ -242,6 +245,7 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
                     Message(
                         "neon.phal.plugin.audio.receiver.set.raspotify.name",
                         {"name": new_name},
+                        {"skill_id": self.skill_id},
                     )
                 )
                 self.settings["raspotify_name"] = new_name
@@ -274,6 +278,7 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
                 Message(
                     "neon.phal.plugin.audio.receiver.pair.bluetooth",
                     {"timeout": timeout},
+                    {"skill_id": self.skill_id},
                 )
             )
         else:
@@ -293,6 +298,7 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
                 Message(
                     "neon.phal.plugin.audio.receiver.pair.kdeconnect",
                     {"timeout": timeout},
+                    {"skill_id": self.skill_id},
                 )
             )
         else:
@@ -315,12 +321,16 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
         """Disable and stop a given systemd service, then speak confirmation to the user."""
         self.bus.emit(
             Message(
-                "neon.phal.plugin.audio.receiver.disable.service", {"service": service}
+                "neon.phal.plugin.audio.receiver.disable.service",
+                {"service": service},
+                {"skill_id": self.skill_id},
             )
         )
         self.bus.emit(
             Message(
-                "neon.phal.plugin.audio.receiver.stop.service", {"service": service}
+                "neon.phal.plugin.audio.receiver.stop.service",
+                {"service": service},
+                {"skill_id": self.skill_id},
             )
         )
         self.speak_dialog(
@@ -331,12 +341,16 @@ class MarkIIAudioReceiverSkill(OVOSSkill):
         """Enable and start a given systemd service, then speak confirmation to the user."""
         self.bus.emit(
             Message(
-                "neon.phal.plugin.audio.receiver.enable.service", {"service": service}
+                "neon.phal.plugin.audio.receiver.enable.service",
+                {"service": service},
+                {"skill_id": self.skill_id},
             )
         )
         self.bus.emit(
             Message(
-                "neon.phal.plugin.audio.receiver.start.service", {"service": service}
+                "neon.phal.plugin.audio.receiver.start.service",
+                {"service": service},
+                {"skill_id": self.skill_id},
             )
         )
         self.speak_dialog(
