@@ -22,7 +22,9 @@ jobs:
     name: skill_resource_tests
     permissions:
       contents: read
-    uses: neongeckocom/.github/.github/workflows/skill_test_resources.yml@master
+    uses: neongeckocom/.github/.github/workflows/skill_test_resources.yml@FEAT_ConfigurableSkillEntrypoint
+    with:
+      skill_entrypoint: skill-mark2-audio-receiver.neongeckocom
   # skill_install_tests:
   #   name: skill_install_tests
   #   permissions:
