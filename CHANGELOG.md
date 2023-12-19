@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.0.5a3](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/tree/0.0.5a3) (2023-12-19)
+
+[Full Changelog](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/compare/0.0.5a2...0.0.5a3)
+
+**Merged pull requests:**
+
+- chore: Update resource tests to support refactored tests [\#18](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/pull/18) ([NeonDaniel](https://github.com/NeonDaniel))
+
+## [0.0.5a2](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/tree/0.0.5a2) (2023-12-19)
+
+[Full Changelog](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/compare/0.0.5a1...0.0.5a2)
+
 ## [0.0.5a1](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/tree/0.0.5a1) (2023-11-16)
 
 [Full Changelog](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/compare/0.0.4...0.0.5a1)
