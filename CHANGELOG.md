@@ -1,36 +1,25 @@
 # Changelog
 
-## [0.0.4a1](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/tree/0.0.4a1) (2023-09-07)
+## [0.0.5a3](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/tree/0.0.5a3) (2023-12-19)
 
-[Full Changelog](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/compare/0.0.2a2...0.0.4a1)
-
-**Merged pull requests:**
-
-- fix: Update release action to troubleshoot run failures [\#12](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/pull/12) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [0.0.2a2](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/tree/0.0.2a2) (2023-09-07)
-
-[Full Changelog](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/compare/0.0.2a1...0.0.2a2)
-
-**Fixed bugs:**
-
-- \[BUG\] Neon almost never recognizes "pair kde connect" [\#5](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/issues/5)
+[Full Changelog](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/compare/0.0.5a2...0.0.5a3)
 
 **Merged pull requests:**
 
-- fix: Troubleshooting alpha automation paths [\#11](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/pull/11) ([NeonDaniel](https://github.com/NeonDaniel))
-- fix: common mistranscriptions for kde connect [\#6](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/pull/6) ([mikejgray](https://github.com/mikejgray))
+- chore: Update resource tests to support refactored tests [\#18](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/pull/18) ([NeonDaniel](https://github.com/NeonDaniel))
 
-## [0.0.2a1](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/tree/0.0.2a1) (2023-08-21)
+## [0.0.5a2](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/tree/0.0.5a2) (2023-12-19)
 
-[Full Changelog](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/compare/31469d4b92a75c8d3b8910cdbc085b435afe45e0...0.0.2a1)
+[Full Changelog](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/compare/0.0.5a1...0.0.5a2)
+
+## [0.0.5a1](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/tree/0.0.5a1) (2023-11-16)
+
+[Full Changelog](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/compare/0.0.4...0.0.5a1)
 
 **Merged pull requests:**
 
-- fix: Resolve GH Automation Failures [\#4](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/pull/4) ([NeonDaniel](https://github.com/NeonDaniel))
-- chore: Enable Release Automation [\#3](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/pull/3) ([NeonDaniel](https://github.com/NeonDaniel))
-- fix: installation [\#2](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/pull/2) ([mikejgray](https://github.com/mikejgray))
-- fix: add skill.json and some tests [\#1](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/pull/1) ([mikejgray](https://github.com/mikejgray))
+- fix: spotify name [\#16](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/pull/16) ([mikejgray](https://github.com/mikejgray))
+- chore: 0.0.4 [\#13](https://github.com/NeonGeckoCom/skill-mark2-audio-receiver/pull/13) ([github-actions[bot]](https://github.com/apps/github-actions))
 
 
 
