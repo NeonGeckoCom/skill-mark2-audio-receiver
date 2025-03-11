@@ -1,9 +1,11 @@
-name: update_skill_json
+# This workflow will run unit tests
+
+name: Update skill.json
 on:
-  push: {}
+  push:
+    branches-ignore:
+      - XLATE_**
+
 jobs:
-  update-skill-json:
-    name: update_skill_json
-    permissions:
-      contents: write
+  update_skill_json:
     uses: neongeckocom/.github/.github/workflows/skill_update_json_spec.yml@master
