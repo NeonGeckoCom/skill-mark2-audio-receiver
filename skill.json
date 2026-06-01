@@ -1,8 +1,4 @@
 {
-    "title": "",
-    "url": "https://github.com/NeonDmitry/skill-mark2-audio-receiver_ua_translation",
-    "summary": "",
-    "short_description": null,
     "description": "This skill enables voice intents for the following audio receiver options on the Mycroft Mark 2 device: - Airplay (via [UxPlay](https://github.com/FDH2/UxPlay)) - [KDE Connect](https://kdeconnect.kde.org/) - Spotify (via [Raspotify](https://dtcooper.github.io/raspotify/)) - Bluetooth It allows you to: - Get the status of any of these services on the Mark 2 - Enable/disable the services - Rename your devices in Airplay/Raspotify - Pair Bluetooth/KDE Connect with other devices Supported in Neon versions after mid-August (TODO: Specific version when it's available) Requires [neon-phal-plugin-audio-receiver](https://github.com/NeonGeckoCom/neon-phal-plugin-audio-receiver), an admin PHAL plugin that handles the portions of the code that require `sudo`.",
     "examples": [
         "Is bluetooth enabled?",
@@ -18,9 +14,25 @@
         "Pair Bluetooth",
         "Pair KDE Connect"
     ],
-    "desktopFile": false,
-    "warning": "",
-    "systemDeps": false,
+    "credits": [
+        "Mike Gray"
+    ],
+    "categories": [
+        "Device Control"
+    ],
+    "tags": "Neon devicecontrol spotify kdeconnect airplay bluetooth mark2 audio cast",
+    "category": "Device Control",
+    "package_name": "skill-markII-audio-receiver",
+    "pip_spec": "skill-markII-audio-receiver",
+    "license": "Unknown",
+    "author": "Mike Gray",
+    "version": "0.1.1a1",
+    "url": "https://github.com/NeonGeckoCom/skill-mark2-audio-receiver",
+    "skill_id": "skill-mark2-audio-receiver.neongeckocom=skill_markII_audio_receiver:MarkIIAudioReceiverSkill",
+    "skillname": "skill-mark2-audio-receiver",
+    "authorname": "NeonGeckoCom",
+    "name": "skill-markII-audio-receiver",
+    "title": "skill-markII-audio-receiver",
     "requirements": {
         "python": [
             "ovos_bus_client",
@@ -30,6 +42,9 @@
         "system": {},
         "skill": []
     },
+    "desktopFile": false,
+    "warning": "",
+    "systemDeps": false,
     "incompatible_skills": [],
     "platforms": [
         "i386",
@@ -39,20 +54,6 @@
         "arm"
     ],
     "branch": "master",
-    "license": "Unknown",
-    "icon": "",
-    "category": "Device Control",
-    "categories": [
-        "Device Control"
-    ],
-    "tags": [
-        "Neon #devicecontrol #spotify #kdeconnect #airplay #bluetooth #mark2 #audio #cast"
-    ],
-    "credits": [
-        "Mike",
-        "Gray"
-    ],
-    "skillname": "skill-mark2-audio-receiver_ua_translation",
-    "authorname": "NeonDmitry",
-    "foldername": null
+    "foldername": null,
+    "short_description": null
 }
